@@ -1,0 +1,46 @@
+# Copyright 2026-present raml-dev
+# SPDX-License-Identifier: AGPL-3.0-only
+
+name: Scoop Manifest Release
+
+on:
+  repository_dispatch:
+    types:
+      - scoop-manifest-release
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      MANIFEST_NAME: ${{ github.event.client_payload.manifest.name }}
+      PACKAGE_APP_NAME: ${{ github.event.client_payload.manifest.app_name }}
+      PACKAGE_APP_DESCRIPTION: ${{ github.event.client_payload.manifest.description }}
+      PACKAGE_APP_LICENSE: ${{ github.event.client_payload.manifest.license }}
+      SCOOP_SOURCE_REPOSITORY: ${{ github.event.client_payload.manifest.source_repository }}
+      PACKAGE_RELEASE_VERSION: ${{ github.event.client_payload.release.version }}
+      PACKAGE_RELEASE_API_URL: ${{ github.event.client_payload.release.api_url }}
+      PACKAGE_RELEASE_URL: ${{ github.event.client_payload.release.html_url }}
+      SOURCE_GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: jdx/mise-action@v4
+        with:
+          cache_key: "mise-{{platform}}-{{version}}-{{file_hash}}"
+          version: "2026.3.10"
+      - name: Ingest stable release and update Scoop manifest
+        run: mise run repo:scoop:publish-release
+      - name: Commit manifest update
+        shell: bash
+        run: |
+          if git diff --quiet -- "bucket/${MANIFEST_NAME}.json"; then
+            echo "No Scoop manifest changes to commit"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "bucket/${MANIFEST_NAME}.json"
+          git commit -m "Update Scoop manifest for ${MANIFEST_NAME} ${PACKAGE_RELEASE_VERSION}"
+          git push

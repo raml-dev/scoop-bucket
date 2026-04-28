@@ -1,0 +1,3 @@
+[env]
+SRC_REPO_ROOT = "/absolute/path/to/solo"
+SCOOP_BUCKET_DISPATCH_JSON = "{{ env.SRC_REPO_ROOT }}/dist/scoop-bucket-dispatch.json"

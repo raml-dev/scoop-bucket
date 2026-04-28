@@ -1,0 +1,27 @@
+# Copyright 2026-present raml-dev
+# SPDX-License-Identifier: AGPL-3.0-only
+
+[tools]
+jq = "1.8.1"
+
+[tasks."repo:scoop:publish-release"]
+description = "Ingest a stable package release and update the Scoop manifest"
+run = """
+#!/usr/bin/env bash
+bash '{{ config_root }}/scripts/publish-manifest-release.sh'
+"""
+
+[tasks."local-publish-test"]
+description = "Render the Scoop manifest from a locally served release fixture"
+run = """
+#!/usr/bin/env bash
+export MANIFEST_NAME="$(jq -r '.client_payload.manifest.name' "$SCOOP_BUCKET_DISPATCH_JSON")"
+export SCOOP_SOURCE_REPOSITORY="$(jq -r '.client_payload.manifest.source_repository' "$SCOOP_BUCKET_DISPATCH_JSON")"
+export PACKAGE_RELEASE_VERSION="$(jq -r '.client_payload.release.version' "$SCOOP_BUCKET_DISPATCH_JSON")"
+export PACKAGE_RELEASE_API_URL="$(jq -r '.client_payload.release.api_url' "$SCOOP_BUCKET_DISPATCH_JSON")"
+export PACKAGE_RELEASE_URL="$(jq -r '.client_payload.release.html_url' "$SCOOP_BUCKET_DISPATCH_JSON")"
+export PACKAGE_APP_NAME="$(jq -r '.client_payload.manifest.app_name' "$SCOOP_BUCKET_DISPATCH_JSON")"
+export PACKAGE_APP_DESCRIPTION="$(jq -r '.client_payload.manifest.description' "$SCOOP_BUCKET_DISPATCH_JSON")"
+export PACKAGE_APP_LICENSE="$(jq -r '.client_payload.manifest.license' "$SCOOP_BUCKET_DISPATCH_JSON")"
+mise run repo:scoop:publish-release
+"""
