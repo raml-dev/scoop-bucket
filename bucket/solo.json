@@ -6,7 +6,7 @@
   "architecture": {
     "64bit": {
       "url": "https://github.com/raml-dev/solo/releases/download/0.1.0/solo-windows-amd64.exe",
-      "hash": "a07875db6248d6688936954e374d0feb31c244c0e2a504d1a89903f7aad184e5",
+      "hash": "ffb3312600b6168019ca5346f9387507833b4a1ab8aabb95a7134652635c6ec4",
       "shortcuts": [
         [
           "solo-windows-amd64.exe",
@@ -16,7 +16,7 @@
     },
     "arm64": {
       "url": "https://github.com/raml-dev/solo/releases/download/0.1.0/solo-windows-arm64.exe",
-      "hash": "f229b839c632c8b76935e141ac2b990effcc86c30bb876107d9b443400f8e20a",
+      "hash": "f8891c204cab080ae6c9303ff6d2ffbe0585a935065f076ece5ffdd66124605f",
       "shortcuts": [
         [
           "solo-windows-arm64.exe",
