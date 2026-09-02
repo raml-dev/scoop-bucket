@@ -1,12 +1,12 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "The lightweight, fast, open-source API client for modern development",
   "homepage": "https://github.com/raml-dev/solo",
   "license": "AGPL-3.0-only",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/raml-dev/solo/releases/download/0.3.0/solo-windows-amd64.exe",
-      "hash": "5b897d0acb35cac245ea8a6a2f8df686e394b0b6f899866480ada74963cd7ca6",
+      "url": "https://github.com/raml-dev/solo/releases/download/0.3.1/solo-windows-amd64.exe",
+      "hash": "598089d431174c80f30c9514a98441b1578b6529ff10cf8ca7632ab7ef1cf758",
       "shortcuts": [
         [
           "solo-windows-amd64.exe",
@@ -15,8 +15,8 @@
       ]
     },
     "arm64": {
-      "url": "https://github.com/raml-dev/solo/releases/download/0.3.0/solo-windows-arm64.exe",
-      "hash": "cf4aceee088eb2f7e1360652dd818b46e85ae0d3308ed0c9d024943a640ddb3b",
+      "url": "https://github.com/raml-dev/solo/releases/download/0.3.1/solo-windows-arm64.exe",
+      "hash": "072da83e270e2ed48b9ed19e90f9ffe3b798e932b0d5b318f92f882362552384",
       "shortcuts": [
         [
           "solo-windows-arm64.exe",
